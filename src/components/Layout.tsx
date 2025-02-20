@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { LogOut, GiftIcon } from 'lucide-react';
+import { LogOut, GiftIcon, CoinsIcon } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 
 export function Layout() {
@@ -26,6 +26,17 @@ export function Layout() {
                   }`}
                 >
                   Règles
+                </Link>
+                <Link
+                  to="/conversion"
+                  className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
+                    location.pathname === '/conversion'
+                      ? 'border-indigo-500 text-gray-900'
+                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  }`}
+                >
+                  <CoinsIcon className="h-4 w-4 mr-1" />
+                  Conversion
                 </Link>
                 <Link
                   to="/transactions"

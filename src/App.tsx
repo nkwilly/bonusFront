@@ -4,8 +4,8 @@ import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { RulesPage } from './pages/RulesPage';
 import { TransactionsPage } from './pages/TransactionsPage';
+import { ConversionPage } from './pages/ConversionPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import './global.css';
 
 function App() {
   return (
@@ -16,6 +16,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route element={<Layout />}>
             <Route path="/rules" element={<RulesPage />} />
+            <Route path="/conversion" element={<ConversionPage />} />
             <Route path="/transactions" element={<TransactionsPage />} />
             <Route path="/" element={<Navigate to="/rules" replace />} />
           </Route>
@@ -25,4 +26,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
