@@ -6,7 +6,7 @@ import { useAuthStore } from '../store/authStore';
 import { GiftIcon } from 'lucide-react';
 
 const loginSchema = z.object({
-  email: z.string().email('Email invalide'),
+  login: z.string().min(1, "Le nom d'utilisateur doit contenir au moins 1 caractère"),
   password: z.string().min(6, 'Le mot de passe doit contenir au moins 6 caractères'),
 });
 
@@ -24,8 +24,13 @@ export function LoginPage() {
   });
 
   const onSubmit = async (data: LoginForm) => {
-    await login(data.email, data.password);
-    navigate('/rules');
+    try {
+      console.log(data);
+      await login(data.login, data.password);
+      navigate('/rules')
+    } catch(e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -42,18 +47,15 @@ export function LoginPage() {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="email" className="sr-only">
-                Adresse email
+              <label htmlFor="text" className="sr-only">
+                Login
               </label>
               <input
-                {...register('email')}
-                type="email"
+                {...register("login")}
+                type="text"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Adresse email"
+                placeholder="Login"
               />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
-              )}
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
@@ -70,7 +72,6 @@ export function LoginPage() {
               )}
             </div>
           </div>
-
           <div>
             <button
               type="submit"

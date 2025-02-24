@@ -1,13 +1,26 @@
-import { useEffect } from 'react';
+import {useEffect, useState} from 'react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { useTransactionsStore } from '../store/transactionsStore';
+import {Transaction} from "../types.ts";
 
 export function TransactionsPage() {
   const { transactions, getTransactions } = useTransactionsStore();
 
+  const [transactionHistory, setTransactionHistory]: Transaction[] = useState([]);
+
   useEffect(() => {
-    getTransactions();
+    const loadTransactions = async () => {
+      try {
+        const fetchRules = await getTransactions();
+        console.log(fetchRules);
+        setTransactionHistory(fetchRules);
+        console.log(transactionHistory);
+      } catch(e) {
+        console.log(e);
+      }
+    }
+    loadTransactions();
   }, [getTransactions]);
 
   return (
@@ -45,22 +58,22 @@ export function TransactionsPage() {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {transactions.map((transaction) => (
+                      {transactionHistory.map((transaction) => (
                         <tr key={transaction.id}>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             {transaction.amount.toLocaleString()} FCFA
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                              transaction.status === 'completed'
+                              transaction.status === 'completed' || "COMPLETED"
                                 ? 'bg-green-100 text-green-800'
-                                : transaction.status === 'pending'
+                                : transaction.status === 'pending' || "PENDING"
                                 ? 'bg-yellow-100 text-yellow-800'
                                 : 'bg-red-100 text-red-800'
                             }`}>
-                              {transaction.status === 'completed'
+                              {transaction.status === 'completed' || "COMPLETED"
                                 ? 'Terminée'
-                                : transaction.status === 'pending'
+                                : transaction.status === 'pending' || 'PENDING'
                                 ? 'En attente'
                                 : 'Échouée'}
                             </span>

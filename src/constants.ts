@@ -1,1 +1,1 @@
-export const jwtToken : string = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiZXJsdXMiLCJpYXQiOjE3Mzk4MDcyMDQsImV4cCI6MTczOTgxMTUyNH0.rdqXoRQvoWPb_DikVDwDez5YhYJp7zYwHkrjJYFxQ-Q";
+export const jwtToken : string|null= sessionStorage.getItem("token");
