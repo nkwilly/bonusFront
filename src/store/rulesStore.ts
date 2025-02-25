@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { BonusRule } from '../types';
 import {Simulate} from "react-dom/test-utils";
 import error = Simulate.error;
+import {baseURLAPI} from "../constants.ts";
 
 const jwtToken = sessionStorage.getItem("token");
 interface RulesState {
@@ -17,7 +18,7 @@ export const useRulesStore = create<RulesState>((set, get) => ({
   rules: [],
   deleteRule: async(ruleId) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/rules/${ruleId}`, {
+      const response = await fetch(`${baseURLAPI}/rules/${ruleId}`, {
         method: "DELETE",
         headers: {
           'Authorization': `Bearer ${jwtToken}`,
@@ -31,7 +32,7 @@ export const useRulesStore = create<RulesState>((set, get) => ({
   },
   getBaseRule: async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/rules/rules-points/baseRule', {
+      const response = await fetch(`${baseURLAPI}/rules/rules-points/baseRule`, {
         method: "GET",
         headers: {
           'Authorization':`Bearer ${jwtToken}`,
@@ -53,7 +54,7 @@ export const useRulesStore = create<RulesState>((set, get) => ({
         id: "1",
         amount: amount
       };
-      const response = await fetch('http://localhost:8080/api/rules/rules-points/baseRule', {
+      const response = await fetch(`${baseURLAPI}/rules/rules-points/baseRule`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${jwtToken}`,
@@ -77,7 +78,7 @@ export const useRulesStore = create<RulesState>((set, get) => ({
         id: Math.random().toString(36).substr(2, 9),
       };
 
-      const response = await fetch('http://localhost:8080/api/rules', {
+      const response = await fetch(`${baseURLAPI}/rules`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${jwtToken}`,
@@ -101,7 +102,7 @@ export const useRulesStore = create<RulesState>((set, get) => ({
   },
   getRules : async (): Promise<BonusRule[]> => {
     try {
-      const response = await fetch('http://localhost:8080/api/rules', {
+      const response = await fetch(`${baseURLAPI}/rules`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${jwtToken}`,

@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { Transaction } from '../types';
+import {baseURLAPI} from "../constants.ts";
 
 interface TransactionsState {
   transactions: Transaction[];
@@ -12,7 +13,7 @@ export const useTransactionsStore = create<TransactionsState>((set) => ({
   transactions: [],
   getTransactions:   async (): Promise<Transaction[]> => {
     try {
-      const response = await fetch('http://localhost:8080/api/transactions/all-transaction', {
+      const response = await fetch(`${baseURLAPI}/transactions/all-transaction`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${jwtToken}`,

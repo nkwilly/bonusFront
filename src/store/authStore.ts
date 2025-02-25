@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { User } from '../types';
+import {baseURLAPI} from "../constants.ts";
 
 interface AuthState {
   user: User | null;
@@ -9,8 +10,6 @@ interface AuthState {
   logout: () => void;
 }
 
-const API_URL = 'http://localhost:8080/auth';
-
 export const useAuthStore = create((set) => ({
   user: null,
   setUser: (user) => set({ user }),
@@ -19,7 +18,7 @@ export const useAuthStore = create((set) => ({
     try {
 
       console.log(JSON.stringify({login, password}));
-      const response = await fetch(`http://localhost:8080/api/auth/signin`, {
+      const response = await fetch(`${baseURLAPI}/auth/signin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({login, password}),
@@ -53,7 +52,7 @@ export const useAuthStore = create((set) => ({
 
   register: async (username, password, email) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/auth/signup`, {
+      const response = await fetch(`${baseURLAPI}/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password, email }),
