@@ -4,7 +4,9 @@ import {Simulate} from "react-dom/test-utils";
 import error = Simulate.error;
 import {baseURLAPI} from "../constants.ts";
 
-const jwtToken = sessionStorage.getItem("token");
+const jwtTokenTemp = sessionStorage.getItem("token");
+const jwtToken = jwtTokenTemp == null ? "" : jwtTokenTemp.toString();
+
 interface RulesState {
   rules: BonusRule[];
   addRule: (rule: Omit<BonusRule, 'id'>) => void;
@@ -18,10 +20,11 @@ export const useRulesStore = create<RulesState>((set, get) => ({
   rules: [],
   deleteRule: async(ruleId) => {
     try {
+      const specialToken = sessionStorage.getItem("token")!.toString();
       const response = await fetch(`${baseURLAPI}/rules/${ruleId}`, {
         method: "DELETE",
         headers: {
-          'Authorization': `Bearer ${jwtToken}`,
+          'Authorization': `Bearer ${specialToken}`,
           'Content-Type': 'application/json'
         },
       });
@@ -32,10 +35,11 @@ export const useRulesStore = create<RulesState>((set, get) => ({
   },
   getBaseRule: async () => {
     try {
+      const specialToken = sessionStorage.getItem("token")!.toString();
       const response = await fetch(`${baseURLAPI}/rules/rules-points/baseRule`, {
         method: "GET",
         headers: {
-          'Authorization':`Bearer ${jwtToken}`,
+          'Authorization':`Bearer ${specialToken}`,
           'Content-Type': 'application/json'
         },
       });
@@ -54,10 +58,11 @@ export const useRulesStore = create<RulesState>((set, get) => ({
         id: "1",
         amount: amount
       };
+      const specialToken = sessionStorage.getItem("token")!.toString();
       const response = await fetch(`${baseURLAPI}/rules/rules-points/baseRule`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${jwtToken}`,
+          'Authorization': `Bearer ${specialToken}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(baseRule)
@@ -77,11 +82,11 @@ export const useRulesStore = create<RulesState>((set, get) => ({
         ...rule,
         id: Math.random().toString(36).substr(2, 9),
       };
-
+      const specialToken = sessionStorage.getItem("token")!.toString();
       const response = await fetch(`${baseURLAPI}/rules`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${jwtToken}`,
+          'Authorization': `Bearer ${specialToken}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(newRule),
@@ -102,10 +107,11 @@ export const useRulesStore = create<RulesState>((set, get) => ({
   },
   getRules : async (): Promise<BonusRule[]> => {
     try {
+      const specialToken = sessionStorage.getItem("token")!.toString();
       const response = await fetch(`${baseURLAPI}/rules`, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${jwtToken}`,
+          'Authorization': `Bearer ${specialToken}`,
           'Content-Type': 'application/json',
         },
       });

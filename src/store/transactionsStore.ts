@@ -7,16 +7,18 @@ interface TransactionsState {
   getTransactions: () => Promise<Transaction[]>;
 }
 
-const jwtToken = sessionStorage.getItem("token");
+const jwtTokenTemp = sessionStorage.getItem("token");
+const jwtToken = jwtTokenTemp == null ? "" : jwtTokenTemp.toString();
 
 export const useTransactionsStore = create<TransactionsState>((set) => ({
   transactions: [],
   getTransactions:   async (): Promise<Transaction[]> => {
     try {
+      const specialToken = sessionStorage.getItem("token")!.toString();
       const response = await fetch(`${baseURLAPI}/transactions/all-transaction`, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${jwtToken}`,
+          'Authorization': `Bearer ${specialToken}`,
           'Content-Type': 'application/json'
         },
       });
@@ -24,7 +26,6 @@ export const useTransactionsStore = create<TransactionsState>((set) => ({
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      console.log(data);
       set({
         transactions: Array.isArray(data.transactions) ? data.transactions : [],
       });

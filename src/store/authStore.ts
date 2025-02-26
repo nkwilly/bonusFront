@@ -33,7 +33,7 @@ export const useAuthStore = create((set) => ({
 
       console.log(data);
       console.log(data.token);
-      sessionStorage.setItem("token", `${data.token}`);
+      sessionStorage.setItem("token", `${data.token.toString()}`);
 
       set({
         user: {
