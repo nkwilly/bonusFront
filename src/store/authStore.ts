@@ -22,6 +22,7 @@ export const useAuthStore = create((set) => ({
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({login, password}),
       });
+  
 
       if (!response.ok)
         throw new Error('Login failed');
@@ -51,6 +52,9 @@ export const useAuthStore = create((set) => ({
         "password": password, 
         "email": email
       }; 
+
+      console.log(body); 
+      
       const response = await fetch(`${baseURLAPI}/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
