@@ -29,7 +29,6 @@ export const useRulesStore = create<RulesState>((set, get) => ({
         },
       });
     } catch (e) {
-      console.error(e);
       return false;
     }
   },
@@ -48,7 +47,6 @@ export const useRulesStore = create<RulesState>((set, get) => ({
       const data = await response.json();
       return data.amount;
     } catch (e) {
-      console.log(`Error : ${e}`);
       return 0.0;
     }
   },
@@ -68,7 +66,6 @@ export const useRulesStore = create<RulesState>((set, get) => ({
         body: JSON.stringify(baseRule)
       });
       if (!response.ok) {
-        console.log(`response status ${response}`);
         return false;
       }
       return true;
@@ -94,14 +91,11 @@ export const useRulesStore = create<RulesState>((set, get) => ({
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
       const data = await response.json();
-
       set({ rules: [...get().rules, data] });
 
       return data;
     } catch (error) {
-      console.error('Error adding rule:', error);
       return null;
     }
   },
@@ -119,14 +113,11 @@ export const useRulesStore = create<RulesState>((set, get) => ({
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      console.log(data);
-
       set({
         rules: data,
       });
       return data;
     } catch (error) {
-      console.error('Error fetching rules:', error);
       return [];
     }
   },
