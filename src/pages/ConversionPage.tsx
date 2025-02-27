@@ -50,7 +50,6 @@ export function ConversionPage() {
         const loadBaseRule = async () => {
             try {
                 const fetchRule = await getBaseRule();
-                console.log(fetchRule);
                 setBaseRulePoint(fetchRule);
             } catch(error) {
                 setBaseRulePoint(0);
