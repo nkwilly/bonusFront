@@ -44,7 +44,7 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  register: async (login, password, email) => {
+  register: async ( email, password, login) => {
     try {
       const body = {
         "login": login, 
