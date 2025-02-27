@@ -31,7 +31,6 @@ export const useTransactionsStore = create<TransactionsState>((set) => ({
       });
       return data;
     } catch (error) {
-      console.error('Error fetching transactions:', error);
       return [];
     }
   },
