@@ -52,6 +52,8 @@ export const useAuthStore = create((set) => ({
         body: JSON.stringify({ username, password, email }),
       });
 
+      console.log(response); 
+
       if (!response.ok) {
         throw new Error('Registration failed');
       }
