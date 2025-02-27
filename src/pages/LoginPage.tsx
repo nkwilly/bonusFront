@@ -28,6 +28,7 @@ export function LoginPage() {
       await login(data.login, data.password);
       navigate('/rules')
     } catch(e) {
+      console.error(e); 
     }
   };
 
