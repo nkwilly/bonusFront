@@ -13,11 +13,9 @@ export function TransactionsPage() {
     const loadTransactions = async () => {
       try {
         const fetchRules = await getTransactions();
-        console.log(fetchRules);
         setTransactionHistory(fetchRules);
-        console.log(transactionHistory);
       } catch(e) {
-        console.log(e);
+        console.error(e); 
       }
     }
     loadTransactions();
