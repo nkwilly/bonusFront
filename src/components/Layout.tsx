@@ -4,15 +4,12 @@ import { useAuthStore } from '../store/authStore';
 
 export function Layout() {
   const location = useLocation();
+  const navigate = useNavigate(); 
   const { user, logout } = useAuthStore();
 
-  const onSubmit = async () => {
-    try {
-      await logout(); 
-      navigate("/login"); 
-    } catch(e) {
-      console.error(e); 
-    }
+  const onSubmit =  () => {
+    logout(); 
+    navigate("/login"); 
   }
 
   return (
