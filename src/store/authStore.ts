@@ -57,14 +57,12 @@ export const useAuthStore = create((set) => ({
         body: JSON.stringify(body),
       });
 
-      console.log(response); 
-
       if (!response.ok) {
         throw new Error('Registration failed');
       }
 
       // Automatically log in after registration
-      await useAuthStore.getState().login(username, password);
+      await useAuthStore.getState().login(login, password);
     } catch (error) {
       console.error(error);
     }
