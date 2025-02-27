@@ -25,11 +25,9 @@ export function LoginPage() {
 
   const onSubmit = async (data: LoginForm) => {
     try {
-      console.log(data);
       await login(data.login, data.password);
       navigate('/rules')
     } catch(e) {
-      console.log(e);
     }
   };
 
