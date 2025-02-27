@@ -17,22 +17,16 @@ export const useAuthStore = create((set) => ({
   login: async (login, password) => {
     try {
 
-      console.log(JSON.stringify({login, password}));
       const response = await fetch(`${baseURLAPI}/auth/signin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({login, password}),
       });
 
-      console.log("response");
-
       if (!response.ok)
         throw new Error('Login failed');
 
       const data = await response.json();
-
-      console.log(data);
-      console.log(data.token);
       sessionStorage.setItem("token", `${data.token.toString()}`);
 
       set({
