@@ -9,24 +9,24 @@ import './global.css';
 //  import {ConversionPage} from "./pages/ConversionPage.tsx";
 
 function App() {
-  return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route element={<ProtectedRoute />}>
-            <Route element={<Layout />}>
-              <Route path="/rules" element={<RulesPage />} />
-              <Route path="/transactions" element={<TransactionsPage />} />
-              {/*
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route element={<ProtectedRoute />}>
+                    <Route element={<Layout />}>
+                        <Route path="/rules" element={<RulesPage />} />
+                        <Route path="/transactions" element={<TransactionsPage />} />
+                        {/*
            <Route path="/conversion" element={<ConversionPage/>}/>
            // */}
-              <Route path="/" element={<Navigate to="/rules" replace />} />
-            </Route>
-          </Route>
-        </Routes>
-      </BrowserRouter>
-  );
+                        <Route path="/" element={<Navigate to="/rules" replace />} />
+                    </Route>
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
