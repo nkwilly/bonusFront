@@ -4,6 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useRulesStore } from '../store/rulesStore';
 import { BonusRule } from "../types";
+//import Conversion from '../components/Conversion'; // Assumed path to Conversion component
+
 
 const ruleSchema = z.object({
     description: z.string().min(1, 'La description est requise'),
@@ -48,6 +50,7 @@ export function RulesPage() {
     const [sortedRules, setSortedRules] = useState<BonusRule[]>([]);
     const [ruleToDelete, setRuleToDelete] = useState<BonusRule | null>(null);
     const [changeRule, setChangeRule] : boolean = useState(false);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
     const {
         register,
@@ -93,6 +96,8 @@ export function RulesPage() {
             await addRule(ruleData);
             await loadRules();
             reset();
+            setSuccessMessage('Règle créée avec succès!');
+            setTimeout(() => setSuccessMessage(null), 3000); // Hide message after 3 seconds
         } catch (error) {
             console.error('Erreur lors de l\'ajout de la règle:', error);
         }
@@ -132,32 +137,36 @@ export function RulesPage() {
                             )}
                         </div>
 
-                        <div>
-                            <label htmlFor="amountMin" className="block text-sm font-medium text-gray-700">
-                                Montant minimum
-                            </label>
-                            <input
-                                type="number"
-                                {...register('amountMin', { valueAsNumber: true })}
-                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            />
-                            {errors.amountMin && (
-                                <p className="mt-1 text-sm text-red-600">{errors.amountMin.message}</p>
-                            )}
+                        <div className="flex space-x-4">
+                            <div className="flex-1">
+                                <label htmlFor="amountMin" className="block text-xs font-medium text-gray-700">
+                                    Montant minimum
+                                </label>
+                                <input
+                                    type="number"
+                                    {...register('amountMin', { valueAsNumber: true })}
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                />
+                                {errors.amountMin && (
+                                    <p className="mt-1 text-sm text-red-600">{errors.amountMin.message}</p>
+                                )}
+                            </div>
                         </div>
 
-                        <div>
-                            <label htmlFor="amountMax" className="block text-sm font-medium text-gray-700">
-                                Montant maximum
-                            </label>
-                            <input
-                                type="number"
-                                {...register('amountMax', { valueAsNumber: true })}
-                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            />
-                            {errors.amountMax && (
-                                <p className="mt-1 text-sm text-red-600">{errors.amountMax.message}</p>
-                            )}
+                        <div className="flex space-x-4">
+                            <div className="flex-1">
+                                <label htmlFor="amountMax" className="block text-xs font-medium text-gray-700">
+                                    Montant maximum
+                                </label>
+                                <input
+                                    type="number"
+                                    {...register('amountMax', { valueAsNumber: true })}
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                />
+                                {errors.amountMax && (
+                                    <p className="mt-1 text-sm text-red-600">{errors.amountMax.message}</p>
+                                )}
+                            </div>
                         </div>
 
                         <div>

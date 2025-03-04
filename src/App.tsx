@@ -6,24 +6,26 @@ import { RulesPage } from './pages/RulesPage';
 import { TransactionsPage } from './pages/TransactionsPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import './global.css';
-import {ConversionPage} from "./pages/ConversionPage.tsx";
+//  import {ConversionPage} from "./pages/ConversionPage.tsx";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route element={<ProtectedRoute />}>
-          <Route element={<Layout />}>
-            <Route path="/rules" element={<RulesPage />} />
-            <Route path="/transactions" element={<TransactionsPage />} />
-            <Route path="/conversion" element={<ConversionPage/>}/>
-            <Route path="/" element={<Navigate to="/rules" replace />} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route element={<ProtectedRoute />}>
+            <Route element={<Layout />}>
+              <Route path="/rules" element={<RulesPage />} />
+              <Route path="/transactions" element={<TransactionsPage />} />
+              {/*
+           <Route path="/conversion" element={<ConversionPage/>}/>
+           // */}
+              <Route path="/" element={<Navigate to="/rules" replace />} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
   );
 }
 
